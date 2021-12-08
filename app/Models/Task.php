@@ -17,7 +17,7 @@ use Illuminate\Database\Eloquent\Model;
  * @OA\Property(property="updated_at", type="string", format="date-time", example="2021-12-07 12:00:00"),
  * )
  *
- * Class User
+ * Class Task
  *
  */
 class Task extends Model
