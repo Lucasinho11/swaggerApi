@@ -11,7 +11,7 @@ class LoginTest extends TestCase
     public function test_empty_input()
     {
         $response = $this->postJson('/api/auth/login');
-        $response->assertStatus(422)->assertJsonStructure(['message', 'errors']);
+        $response->assertStatus(400)->assertJsonStructure(['msg']);
     }
     public function test_invalid_input()
     {
@@ -22,7 +22,7 @@ class LoginTest extends TestCase
         ];
 
         $response = $this->postJson('/api/auth/login', $data);
-        $response->assertStatus(422)->assertJsonStructure(['message', 'errors']);
+        $response->assertStatus(401)->assertJsonStructure(['msg']);
     }
     public function test_invalid_credentials()
     {
@@ -33,7 +33,7 @@ class LoginTest extends TestCase
         ];
 
         $response = $this->postJson('/api/auth/login', $data);
-        $response->assertStatus(401)->assertJsonStructure(['error']);
+        $response->assertStatus(401)->assertJsonStructure(['msg']);
     }
     public function test_login_with_success()
     {
