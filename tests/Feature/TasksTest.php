@@ -190,7 +190,23 @@ class TasksTest extends TestCase
         
         $response->assertStatus(404);
     }
+    public function test_complete_task_success()
+    {
+        $user = $this->createUser();
+        $token = $user->createToken('ios')->plainTextToken;
 
+        $postForm = [
+            'id' => 1,
+            'body' => $this->faker->text,
+            'user_id'=> $user->id
+        ];
+
+        $response = $this->actingAs($user)->postJson('/api/createTask', $postForm);
+
+        $response = $this->actingAs($user)->getJson('/api/completeTask/1');
+        
+        $response->assertStatus(200);
+    }
 
 
     
