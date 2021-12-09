@@ -242,7 +242,7 @@ class TasksController extends Controller
             "success"=>true
         ], 200);
        /**
-     * @OA\Post(path="/api/updateTask/{id}",
+     * @OA\Put(path="/api/updateTask/{id}",
      *   tags={"tasks"},
      *   summary="Update task of user",
      *   description="Update task of user",
