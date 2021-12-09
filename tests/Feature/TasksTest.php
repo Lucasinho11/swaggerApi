@@ -92,16 +92,17 @@ class TasksTest extends TestCase
     {
 
         $user = $this->createUser();
+        $user2 = $this->createUser();
         $token = $user->createToken('ios')->plainTextToken;
 
         $postForm = [
-            'id' => 120,
+            'id' => 1,
             'body' => $this->faker->text,
             'user_id'=> 1234567
         ];
 
-        $response = $this->actingAs($user)->postJson('/api/createTask', $postForm);
-        $response = $this->actingAs($user)->deleteJson('/api/deleteTask/120');
+        $response = $this->actingAs($user2)->postJson('/api/createTask', $postForm);
+        $response = $this->actingAs($user)->deleteJson('/api/deleteTask/1');
         
         $response->assertStatus(403);
     }
@@ -164,19 +165,20 @@ class TasksTest extends TestCase
     public function test_edit_task_not_access()
     {
         $user = $this->createUser();
+        $user2 = $this->createUser();
         $token = $user->createToken('ios')->plainTextToken;
 
         $postForm = [
-            'id' => 1245,
+            'id' => 1,
             'body' => $this->faker->text,
-            'user_id'=> 1456
+            'user_id'=> $user2->id
         ];
 
-        $response = $this->actingAs($user)->postJson('/api/createTask', $postForm);
+        $response = $this->actingAs($user2)->postJson('/api/createTask', $postForm);
         $editForm = [
             'body' => $this->faker->text,
         ];
-        $response = $this->actingAs($user)->putJson('/api/updateTask/1245', $editForm);
+        $response = $this->actingAs($user)->putJson('/api/updateTask/1', $editForm);
         
         $response->assertStatus(403);
     }
