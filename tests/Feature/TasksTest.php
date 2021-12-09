@@ -95,13 +95,13 @@ class TasksTest extends TestCase
         $token = $user->createToken('ios')->plainTextToken;
 
         $postForm = [
-            'id' => 1,
+            'id' => 120,
             'body' => $this->faker->text,
             'user_id'=> 1234567
         ];
 
         $response = $this->actingAs($user)->postJson('/api/createTask', $postForm);
-        $response = $this->actingAs($user)->deleteJson('/api/deleteTask/1');
+        $response = $this->actingAs($user)->deleteJson('/api/deleteTask/120');
         
         $response->assertStatus(403);
     }
@@ -140,12 +140,14 @@ class TasksTest extends TestCase
             'body' => $this->faker->text,
             'user_id'=> $user->id
         ];
+        
 
         $response = $this->actingAs($user)->postJson('/api/createTask', $postForm);
         $editForm = [
             'body' => $this->faker->text,
         ];
-        $response = $this->actingAs($user)->postJson('/api/updateTask/1', $editForm);
+        
+        $response = $this->actingAs($user)->putJson('/api/updateTask/1', $editForm);
         
         $response->assertStatus(200);
     }
@@ -155,7 +157,7 @@ class TasksTest extends TestCase
         $editForm = [
             'body' => $this->faker->text,
         ];
-        $response = $this->postJson('/api/updateTask/1', $editForm);
+        $response = $this->putJson('/api/updateTask/1', $editForm);
         
         $response->assertStatus(401);
     }
@@ -174,7 +176,7 @@ class TasksTest extends TestCase
         $editForm = [
             'body' => $this->faker->text,
         ];
-        $response = $this->actingAs($user)->postJson('/api/updateTask/1245', $editForm);
+        $response = $this->actingAs($user)->putJson('/api/updateTask/1245', $editForm);
         
         $response->assertStatus(403);
     }
@@ -186,7 +188,7 @@ class TasksTest extends TestCase
         $editForm = [
             'body' => $this->faker->text,
         ];
-        $response = $this->actingAs($user)->postJson('/api/updateTask/99', $editForm);
+        $response = $this->actingAs($user)->putJson('/api/updateTask/99', $editForm);
         
         $response->assertStatus(404);
     }
