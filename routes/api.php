@@ -23,6 +23,6 @@ Route::post('auth/login', 'App\Http\Controllers\LoginController@login');
 Route::middleware('auth:sanctum')->get('tasks', 'App\Http\Controllers\TasksController@tasks');
 Route::middleware('auth:sanctum')->post('createTask', 'App\Http\Controllers\TasksController@createTask');
 Route::middleware('auth:sanctum')->delete('deleteTask/{id}', 'App\Http\Controllers\TasksController@deleteTask');
-Route::middleware('auth:sanctum')->post('updateTask/{id}', 'App\Http\Controllers\TasksController@updateTask');
+Route::middleware('auth:sanctum')->put('updateTask/{id}', 'App\Http\Controllers\TasksController@updateTask');
 Route::middleware('auth:sanctum')->get('completeTask/{id}', 'App\Http\Controllers\TasksController@completeTask');
 
